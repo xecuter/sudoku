@@ -1,1 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.lq-container{
+  width: 100%;
+}
+
+.main-div{
+  width: 630px;
+  margin: 0 auto;
+  /*background-color: #ff006e;*/
+}
+
+/*====================================================================================*/
+
+.main-div app-box-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.main-div app-box-row app-box{
+  flex-grow: 1;
+}
+
+app-box app-cell-row{
+  display: flex;
+  flex-direction: row;
+}
+
+app-box app-cell-row app-cell{
+  flex-grow: 1;
+  border-bottom: 1px solid #ffaa00;
+  border-right: 1px solid #ffaa00;
+  height: 70px;
+}
+app-box-row:nth-child(1) app-cell-row:nth-child(1) app-cell{
+  border-top: 4px solid #ff4800;
+}
+app-box:nth-child(1) app-cell-row app-cell:nth-child(1){
+  border-left: 4px solid #ff4800;
+}
+app-box:nth-child(3) app-cell-row app-cell:nth-child(3){
+  border-right: 4px solid #ff4800;
+}
+app-box-row:nth-child(3) app-cell-row:nth-child(3) app-cell{
+  border-bottom: 4px solid #ff4800;
+}
+app-box-row app-box:not(:nth-child(3)) app-cell-row app-cell:nth-child(3){
+  border-right: 2px solid #ff6000;
+}
+app-box-row:not(:nth-child(3)) app-box app-cell-row:nth-child(3) app-cell{
+  border-bottom: 2px solid #ff6000;
+}
+
+app-cell .cell{
+  width: 100%;
+  height: 100%;
+  background-color: aliceblue;
+}
