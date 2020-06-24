@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+body{
+  font-family: 'Roboto Mono', monospace;
+}
+
 .lq-container{
   width: 100%;
 }
@@ -16,47 +20,46 @@
 
 /*====================================================================================*/
 
-.main-div app-box-row{
+
+.grid-row{
   display: flex;
-  flex-direction: row;
 }
-
-.main-div app-box-row app-box{
-  flex-grow: 1;
+.grid-row .grid-col{
+  display: inline-block;
 }
-
-app-box app-cell-row{
-  display: flex;
-  flex-direction: row;
-}
-
-app-box app-cell-row app-cell{
-  flex-grow: 1;
+.grid-row .grid-col .grid-cell{
   border-bottom: 1px solid #ffaa00;
   border-right: 1px solid #ffaa00;
-  height: 70px;
+  display: flex;
+  height: 64px;
+  width: 64px;
 }
-app-box-row:nth-child(1) app-cell-row:nth-child(1) app-cell{
-  border-top: 4px solid #ff4800;
+.grid-row:nth-child(3n) .grid-col .grid-cell{
+  border-bottom: 4px solid darkorange;
 }
-app-box:nth-child(1) app-cell-row app-cell:nth-child(1){
-  border-left: 4px solid #ff4800;
+.grid-row .grid-col:nth-child(3n) .grid-cell{
+  border-right: 4px solid darkorange;
 }
-app-box:nth-child(3) app-cell-row app-cell:nth-child(3){
-  border-right: 4px solid #ff4800;
+.grid-row:first-of-type .grid-col .grid-cell{
+  border-top: 4px solid darkorange;
 }
-app-box-row:nth-child(3) app-cell-row:nth-child(3) app-cell{
-  border-bottom: 4px solid #ff4800;
+.grid-row .grid-col:first-of-type .grid-cell{
+  border-left: 4px solid darkorange;
 }
-app-box-row app-box:not(:nth-child(3)) app-cell-row app-cell:nth-child(3){
-  border-right: 2px solid #ff6000;
+.grid-row:last-of-type .grid-col .grid-cell{
+  border-bottom: 4px solid darkorange;
 }
-app-box-row:not(:nth-child(3)) app-box app-cell-row:nth-child(3) app-cell{
-  border-bottom: 2px solid #ff6000;
+.grid-row .grid-col:last-of-type .grid-cell{
+  border-right: 4px solid darkorange;
 }
-
-app-cell .cell{
-  width: 100%;
-  height: 100%;
-  background-color: aliceblue;
+.grid-cell .cell{
+  height: 64px;
+  width: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}
+.cell.selected{
+  background-color: antiquewhite;
 }

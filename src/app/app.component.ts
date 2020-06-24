@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
-import {BoxRowComponent} from './components/box-row/box-row.component';
+import {Component, OnInit} from '@angular/core';
+import {SudokuService} from './services/sudoku.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'sudoku';
-  boxRows: BoxRowComponent[] = [new BoxRowComponent(), new BoxRowComponent(), new BoxRowComponent()];
 
+  constructor(private sudoku: SudokuService) {
+  }
 
-  /*cells: string[] = ['cell-1', 'cell-2', 'cell-3'];
-  cell_row: string[][] = [this.cells, this.cells, this.cells];
-  box: string[][][] = [this.cell_row, this.cell_row, this.cell_row];*/
+  ngOnInit(): void {
+  }
+
+  initSudokuBtn() {
+    console.log( this.sudoku.cells );
+    this.sudoku.initSudoku();
+  }
 
 }

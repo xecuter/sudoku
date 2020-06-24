@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CellRowComponent } from './cell-row.component';
+import { SudokuGridComponent } from './sudoku-grid.component';
 
-describe('CellRowComponent', () => {
-  let component: CellRowComponent;
-  let fixture: ComponentFixture<CellRowComponent>;
+describe('SudokuGridComponent', () => {
+  let component: SudokuGridComponent;
+  let fixture: ComponentFixture<SudokuGridComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CellRowComponent ]
+      declarations: [ SudokuGridComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CellRowComponent);
+    fixture = TestBed.createComponent(SudokuGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

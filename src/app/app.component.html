@@ -2,6 +2,8 @@
 
 <div class="lq-container">
   <div class="main-div">
-    <app-box-row *ngFor="let boxRow of boxRows; let i = index" [attr.box-row-index]="i"></app-box-row>
+    <app-sudoku-grid></app-sudoku-grid>
   </div>
 </div>
+
+<button (click)="initSudokuBtn()">Start</button>
