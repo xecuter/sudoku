@@ -1,1 +1,14 @@
-<div class="cell" [ngClass]="{'selected' : isSelected}" (click)="selectGridCell($event)">{{num}}</div>
+<div [@numberPuffedIn]="num !== '' ? 'puffIn' : ''"
+     class="cell"
+     [ngClass]="{
+        selected : isSelected,
+        wrong : isWrongValue,
+        related: isRelated,
+        highlight: isHighlighted,
+        highlightWrong: isHighlightWrong,
+        editable: isEditable}"
+     (click)="selectGridCell($event)"
+     (keydown)="onKeyDown($event)"
+     (keydown.backspace)="onBackspaceKeydown($event)"
+     (keydown.delete)="onBackspaceKeydown($event)"
+     tabindex="0">{{num}}</div>

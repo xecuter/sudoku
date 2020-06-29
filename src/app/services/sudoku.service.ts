@@ -28,13 +28,20 @@ export class SudokuService {
   }
 
   initSudoku() {
-    const grid = blink(64);
+    const grid = blink(44);
+
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        this.cells[i][j].num = '';
+        this.cells[i][j].isEditable = true;
+      }
+    }
+
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         if (grid[i][j] > 0) {
           this.cells[i][j].num = grid[i][j];
-        } else {
-          this.cells[i][j].num = '';
+          this.cells[i][j].isEditable = false;
         }
       }
     }

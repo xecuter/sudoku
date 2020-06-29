@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SudokuGridComponent } from './components/sudoku-grid/sudoku-grid.component';
 import { GridCellComponent } from './components/grid-cell/grid-cell.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { GridCellComponent } from './components/grid-cell/grid-cell.component';
     GridCellComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
