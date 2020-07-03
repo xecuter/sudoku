@@ -28,7 +28,6 @@ export class SudokuService {
   }
 
   initSudoku() {
-    const grid = blink(44);
 
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
@@ -36,6 +35,8 @@ export class SudokuService {
         this.cells[i][j].isEditable = true;
       }
     }
+
+    const grid = blink(44);
 
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {

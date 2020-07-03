@@ -1,5 +1,4 @@
-<div [@numberPuffedIn]="num !== '' ? 'puffIn' : ''"
-     class="cell"
+<div class="cell"
      [ngClass]="{
         selected : isSelected,
         wrong : isWrongValue,
@@ -11,4 +10,6 @@
      (keydown)="onKeyDown($event)"
      (keydown.backspace)="onBackspaceKeydown($event)"
      (keydown.delete)="onBackspaceKeydown($event)"
-     tabindex="0">{{num}}</div>
+     tabindex="0">
+  <div class="anim-cell" [@numberPuffedIn]="num == '' ? '' : 'puffIn'">{{num}}</div>
+</div>

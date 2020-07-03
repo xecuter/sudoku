@@ -15,9 +15,4 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  initSudokuBtn() {
-    console.log( this.sudoku.cells );
-    this.sudoku.initSudoku();
-  }
-
 }

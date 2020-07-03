@@ -1,6 +1,6 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {SudokuService} from '../../services/sudoku.service';
-import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
+import {animate, keyframes, query, stagger, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-grid-cell',
@@ -10,7 +10,8 @@ import {animate, keyframes, state, style, transition, trigger} from '@angular/an
       /*state('puffOut', style({opacity: 0, transform: 'scale3d(2, 2, 2)'})),*/
       state('puffIn', style({opacity: 1, transform: 'scale3d(1, 1, 1)'})),
       transition('* => puffIn', [
-        animate('1s ease-out')
+        style({opacity: 0.1, transform: 'scale3d(1.5, 1.5, 1.5)'}),
+        query(':self', stagger(3000, animate('1s ease-out')))
       ])
     ])
   ]
