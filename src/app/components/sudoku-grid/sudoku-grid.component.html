@@ -1,5 +1,13 @@
 <div *ngFor="let i of ' '.repeat(N).split(''); let i_in = index" class="grid-row" [attr.i]="i_in">
   <div *ngFor="let j of ' '.repeat(N).split(''); let j_in = index" class="grid-col" [attr.i]="j_in">
-    <app-grid-cell class="grid-cell" [i]="i_in" [j]="j_in">T</app-grid-cell>
+    <app-grid-cell class="grid-cell" (checkIfComplete)="checkIfComplete()" [i]="i_in" [j]="j_in">T</app-grid-cell>
   </div>
 </div>
+<!-- Button trigger modal -->
+<button mat-raised-button (click)="endGameOpenDlg()">Pick one</button>
+<div class="row" *ngIf="isGameCompeted">
+  <hr>
+  <p>Congratulation!!!</p>
+  <p>You Won</p>
+</div>
+

@@ -1,4 +1,4 @@
-<div class="cell"
+<div appLongPress class="cell"
      [ngClass]="{
         selected : isSelected,
         wrong : isWrongValue,
@@ -10,6 +10,10 @@
      (keydown)="onKeyDown($event)"
      (keydown.backspace)="onBackspaceKeydown($event)"
      (keydown.delete)="onBackspaceKeydown($event)"
+     (keyup)="onKeyUp($event)"
+     (onLongPress)="openInputModal()"
      tabindex="0">
   <div class="anim-cell" [@numberPuffedIn]="num == '' ? '' : 'puffIn'">{{num}}</div>
+  <app-grid-cell-input></app-grid-cell-input>
+  <app-grid-cell-helper *ngIf="showHelper"></app-grid-cell-helper>
 </div>

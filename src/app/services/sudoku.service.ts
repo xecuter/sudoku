@@ -27,7 +27,7 @@ export class SudokuService {
     this.cells[cell.x][cell.y] = cell;
   }
 
-  initSudoku() {
+  initSudoku(diffLevel: number) {
 
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
@@ -36,7 +36,7 @@ export class SudokuService {
       }
     }
 
-    const grid = blink(44);
+    const grid = blink(diffLevel);
 
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
@@ -94,4 +94,14 @@ export class SudokuService {
     }
   }
 
+  checkIfCompleted() {
+    for (let i = 0;  i < this.cells.length; i++) {
+      for (let j = 0; j < this.cells[i].length; j++) {
+        if ( this.cells[i][j].isWrongValue || this.cells[i][j].num === '' ) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }
