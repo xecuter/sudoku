@@ -8,9 +8,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import { GameComponent } from './components/game/game.component';
 import { DesktopComponent } from './components/desktop/desktop.component';
-import {MatButtonModule, MatDialogModule} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { GridCellHelperComponent } from './components/grid-cell-helper/grid-cell-helper.component';
 import { GridCellInputComponent } from './components/grid-cell-input/grid-cell-input.component';
 import { LongPressDirective } from './directives/long-press.directive';
 
@@ -23,7 +22,6 @@ import { LongPressDirective } from './directives/long-press.directive';
     GameComponent,
     DesktopComponent,
     ConfirmationDialogComponent,
-    GridCellHelperComponent,
     GridCellInputComponent,
     LongPressDirective
   ],
@@ -35,7 +33,8 @@ import { LongPressDirective } from './directives/long-press.directive';
       {path: 'game/:diffLevel', component: GameComponent}
     ]),
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],

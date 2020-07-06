@@ -1,11 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
+.no-select {
+  -webkit-touch-callout:  none; /* iOS Safari */
+  -webkit-user-select:    none; /* Safari */
+  -khtml-user-select:     none; /* Konqueror HTML */
+  -moz-user-select:       none; /* Old versions of Firefox */
+  -ms-user-select:        none; /* Internet Explorer/Edge */
+  user-select:            none; /* Non-prefixed version, currently
+                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
 .lq-container{
   width: 100%;
+  z-index: 1;
 }
 .main-div{
-  width:  576px;
+  width:  760px;
   margin: 0 auto;
+  z-index: 1;
 }
 
 /*====================================================================================*/
@@ -17,14 +29,60 @@
   display: inline-block;
 }
 .grid-row .grid-col .grid-cell{
-
   display: flex;
   height: 64px;
   width: 64px;
+  z-index: 1;
+  position: relative;
 }
 .grid-row .grid-col .grid-cell .cell{
   border-bottom: 1px solid #ffaa00;
   border-right: 1px solid #ffaa00;
+}
+.grid-cell .cell{
+  height: 64px;
+  width: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  outline: 0 solid transparent;
+  z-index: 2;
+  position: absolute;
+  overflow: visible;
+}
+.grid-input-overly{
+  z-index: 999;
+  display: contents;
+  background-color: white;
+  font-size: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+.grid-input-overly .num {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 0 solid transparent;
+  border: 1px solid #ddd;
+}
+.grid-input-helper{
+  display: block;
+  background-color: white;
+  font-size: 0.7rem;
+  color: darkseagreen;
+}
+.grid-input-helper .num {
+  height: 18px;
+  width: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 0 solid transparent;
 }
 .grid-row:nth-child(3n) .grid-col .grid-cell .cell{
   border-bottom: 4px solid darkorange;
@@ -44,19 +102,10 @@
 .grid-row .grid-col:last-of-type .grid-cell .cell{
   border-right: 4px solid darkorange;
 }
-.grid-cell .cell{
-  height: 64px;
-  width: 64px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  outline: 0 solid transparent;
-}
-.cell.selected {
+.cell.selected, .cell.selected .grid-input-helper {
   background-color: antiquewhite !important;
 }
-.cell.related {
+.cell.related, .cell.related .grid-input-helper {
   background-color: #eefdf7;
 }
 .cell.editable {
@@ -76,3 +125,82 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .main-div{
+    width: 360px;
+  }
+  .grid-row .grid-col .grid-cell{
+    height: 40px;
+    width: 40px;
+  }
+  .grid-cell .cell{
+    height: 40px;
+    width: 40px;
+    font-size: 1.5rem;
+  }
+  .grid-input-helper .num{
+    height: 11px;
+    width: 11px;
+    font-size: 0.5rem;
+  }
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .main-div{
+    width: 576px;
+  }
+  .grid-row .grid-col .grid-cell{
+    height: 64px;
+    width: 64px;
+  }
+  .grid-cell .cell{
+    height: 64px;
+    width: 64px;
+    font-size: 2rem;
+  }
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .main-div{
+    width: 720px;
+  }
+  .grid-row .grid-col .grid-cell{
+    height: 80px;
+    width: 80px;
+  }
+  .grid-cell .cell{
+    height: 80px;
+    width: 80px;
+    font-size: 3rem;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .grid-row .grid-col .grid-cell{
+    height: 64px;
+    width: 64px;
+  }
+  .grid-cell .cell{
+    height: 64px;
+    width: 64px;
+    font-size: 2.5rem;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+  .grid-row .grid-col .grid-cell{
+    height: 64px;
+    width: 64px;
+  }
+  .grid-cell .cell{
+    height: 64px;
+    width: 64px;
+    font-size: 2.5rem;
+  }
+}

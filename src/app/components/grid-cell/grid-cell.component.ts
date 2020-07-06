@@ -22,6 +22,7 @@ export class GridCellComponent implements OnInit {
   @Output('checkIfComplete') checkIfComplete: EventEmitter<any> = new EventEmitter<any>();
   x: number;
   y: number;
+  options: number[];
   num: any;
   isRelated: boolean;
   isSelected: boolean;
@@ -35,6 +36,7 @@ export class GridCellComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.options = []; // [1, 2, 3, 4, 5, 6, 7, 8, 9];
     this.x = this.i;
     this.y = this.j;
     this.sudokuService.addCell(this);
@@ -81,6 +83,7 @@ export class GridCellComponent implements OnInit {
       this.isWrongValue = !this.sudokuService.isSafeNumber(this.x, this.y, enteredNumber);
       this.num = enteredNumber;
       this.highlightSameNumber(this);
+      this.options.push(enteredNumber);
     }
   }
 
@@ -106,11 +109,12 @@ export class GridCellComponent implements OnInit {
         }
       }
     }
-
   }
 
   onKeyUp($event: KeyboardEvent) {
+    console.log( '-----------> CELL: Sending message to Grid --->' );
     this.checkIfComplete.emit();
+    this.sudokuService.fillUpdateHelper();
   }
 
   openInputModal() {

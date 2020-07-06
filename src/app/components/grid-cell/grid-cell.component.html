@@ -6,14 +6,29 @@
         highlight: isHighlighted,
         highlightWrong: isHighlightWrong,
         editable: isEditable}"
-     (click)="selectGridCell($event)"
+     (mousedown)="selectGridCell($event)"
      (keydown)="onKeyDown($event)"
      (keydown.backspace)="onBackspaceKeydown($event)"
      (keydown.delete)="onBackspaceKeydown($event)"
      (keyup)="onKeyUp($event)"
      (onLongPress)="openInputModal()"
      tabindex="0">
-  <div class="anim-cell" [@numberPuffedIn]="num == '' ? '' : 'puffIn'">{{num}}</div>
-  <app-grid-cell-input></app-grid-cell-input>
-  <app-grid-cell-helper *ngIf="showHelper"></app-grid-cell-helper>
+  <div *ngIf="num !== ''" class="anim-cell" [@numberPuffedIn]="num == '' ? '' : 'puffIn'">{{num}}</div>
+  <div *ngIf="num === '' && options.length > 0" class="grid-input-helper">
+    <div class="grid-row">
+      <div class="num"><span [hidden]="options.indexOf(1) < 0">1</span></div>
+      <div class="num"><span [hidden]="options.indexOf(2) < 0">2</span></div>
+      <div class="num"><span [hidden]="options.indexOf(3) < 0">3</span></div>
+    </div>
+    <div class="grid-row">
+      <div class="num"><span [hidden]="options.indexOf(4) < 0">4</span></div>
+      <div class="num"><span [hidden]="options.indexOf(5) < 0">5</span></div>
+      <div class="num"><span [hidden]="options.indexOf(6) < 0">6</span></div>
+    </div>
+    <div class="grid-row">
+      <div class="num"><span [hidden]="options.indexOf(7) < 0">7</span></div>
+      <div class="num"><span [hidden]="options.indexOf(8) < 0">8</span></div>
+      <div class="num"><span [hidden]="options.indexOf(9) < 0">9</span></div>
+    </div>
+  </div>
 </div>

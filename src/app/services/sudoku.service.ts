@@ -46,6 +46,7 @@ export class SudokuService {
         }
       }
     }
+    this.fillUpdateHelper();
   }
 
   // check in the row for existence
@@ -56,6 +57,24 @@ export class SudokuService {
       }
     }
     return true;
+  }
+
+  fillUpdateHelper() {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        const cell = this.cells[i][j];
+        // Consider it only if it is editable.
+        cell.options = [];
+        if ( cell.isEditable && cell.num === '' ) {
+          // from 1 to 9 check if it is suitable for this cell.
+          for (let k = 0; k < 9; k++) {
+            if ( this.isSafeNumber(i, j, (k + 1)) ) {
+              cell.options.push((k + 1));
+            }
+          }
+        }
+      }
+    }
   }
 
   // check in the row for existence

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SudokuService} from '../../services/sudoku.service';
 import {MatDialog} from '@angular/material';
 import {ConfirmationDialogComponent, DialogData} from '../confirmation-dialog/confirmation-dialog.component';
@@ -9,9 +9,10 @@ import {ConfirmationDialogComponent, DialogData} from '../confirmation-dialog/co
 })
 export class SudokuGridComponent implements OnInit {
   N;
-  isGameCompeted: boolean;
+  @Output() isGameCompeted: EventEmitter<any> = new EventEmitter<any>();
+  @Output() gameStateChanged: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private sudokuService: SudokuService, public dialog: MatDialog) {
+  constructor(private sudokuService: SudokuService) {
   }
 
   ngOnInit() {
@@ -19,27 +20,6 @@ export class SudokuGridComponent implements OnInit {
   }
 
   checkIfComplete() {
-    this.isGameCompeted = this.sudokuService.checkIfCompleted();
-  }
-
-  endGameOpenDlg() {
-    let endCurrentGame = false;
-    if ( !this.isGameCompeted ) {
-      const dlgData = new DialogData('End Current Game', 'Do you really want to End the current Game?');
-      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        width: '250px',
-        data: dlgData
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        endCurrentGame = result;
-
-        if (endCurrentGame) {
-
-        }
-      });
-    }
-
+    this.isGameCompeted.emit( this.sudokuService.checkIfCompleted() );
   }
 }
