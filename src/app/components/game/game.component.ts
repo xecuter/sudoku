@@ -3,6 +3,10 @@ import {ActivatedRoute} from '@angular/router';
 import {SudokuService} from '../../services/sudoku.service';
 import {ConfirmationDialogComponent, DialogData} from '../confirmation-dialog/confirmation-dialog.component';
 import {MatDialog} from '@angular/material';
+import {faHome, faPencilAlt, faPencilRuler, faPen} from '@fortawesome/free-solid-svg-icons';
+import {faEdit} from '@fortawesome/free-regular-svg-icons';
+import {faBuromobelexperte} from '@fortawesome/free-brands-svg-icons';
+import {IconDefinition} from '@fortawesome/fontawesome-common-types';
 
 @Component({
   selector: 'app-game',
@@ -13,10 +17,19 @@ export class GameComponent implements OnInit, AfterViewInit {
   difficultyLevel: number;
   isGameCompleted: boolean;
   numberUsed: number[];
+  faHome: IconDefinition;
+  faEdit: IconDefinition;
+  faPencilRuler: IconDefinition;
+  faPen: IconDefinition;
 
   constructor(private route: ActivatedRoute, private sudokuService: SudokuService, public dialog: MatDialog ) { }
 
   ngOnInit() {
+    this.faHome = faHome;
+    this.faEdit = faEdit;
+    this.faPencilRuler = faPencilRuler;
+    this.faPen = faPen;
+
     this.route.paramMap
       .subscribe(params => {
         console.log(params.get('diffLevel'));
@@ -31,6 +44,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     setTimeout(_ => {
       this.sudokuService.initSudoku(this.difficultyLevel);
+      this.gameStateChanged(0 );
     }, 500);
   }
 
@@ -39,8 +53,11 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.isGameCompleted = isGameCompletedFlag;
   }
 
-  gameStateChanged() {
-
+  gameStateChanged(numberInput: number) {
+    console.log('--------------> is Game Completed --> ' + numberInput);
+    for (let i = 0; i < 9; i++) {
+      this.numberUsed[i] = this.sudokuService.numberUsed(i + 1);
+    }
   }
 
   endGameOpenDlg() {
@@ -55,7 +72,6 @@ export class GameComponent implements OnInit, AfterViewInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         endCurrentGame = result;
-
         if (endCurrentGame) {
 
         }

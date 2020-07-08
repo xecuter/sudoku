@@ -13,8 +13,8 @@
      (keyup)="onKeyUp($event)"
      (onLongPress)="openInputModal()"
      tabindex="0">
-  <div *ngIf="num !== ''" class="anim-cell" [@numberPuffedIn]="num == '' ? '' : 'puffIn'">{{num}}</div>
-  <div *ngIf="num === '' && options.length > 0" class="grid-input-helper">
+  <div *ngIf="num !== 0" class="anim-cell" [@numberPuffedIn]="num == 0 ? '' : 'puffIn'">{{num}}</div>
+  <div *ngIf="num === 0 && options.length > 0" class="grid-input-helper">
     <div class="grid-row">
       <div class="num"><span [hidden]="options.indexOf(1) < 0">1</span></div>
       <div class="num"><span [hidden]="options.indexOf(2) < 0">2</span></div>

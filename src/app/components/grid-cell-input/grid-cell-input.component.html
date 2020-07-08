@@ -1,17 +1,43 @@
-<div class="grid-input-overly">
-  <div class="grid-row">
-    <div class="num">1</div>
-    <div class="num">2</div>
-    <div class="num">3</div>
+<div class="grid-input-panel">
+  <div class="input-row ">
+    <div *ngFor="let i of ' '.repeat(9).split(''); let i_in = index"
+         (click)="clickNumberInput(i_in + 1)" class="num float-left">
+
+      <!--<div class="counter">
+        <div *ngFor="let j of ' '.repeat(9).split(''); let j_in = index"
+             [ngClass]="{'used' : j_in < numberUsed[i_in]}"></div>
+      </div>-->
+      <!--<button class="btn btn-warning btn-circle btn-md" [disabled]="numberUsed[i_in] > 8" >{{i_in + 1}}</button>-->
+      <div class="cont" [ngClass]="{'used' : numberUsed[i_in]>8}" [accessKey]="i_in + 1">
+        <svg class="svg" [attr.width]="widthHeight" [attr.height]="widthHeight" [attr.viewbox]="viewBox">
+
+          <circle fill="transparent" stroke-dashoffset="0"
+                  [attr.class]="numberUsed[i_in]"
+                  [attr.r]="radius"
+                  [attr.cx]="halfWidthHeight"
+                  [attr.cy]="halfWidthHeight"
+                  [attr.stroke-dasharray]="circumference"></circle>
+
+          <circle fill="transparent" class="bar"
+                  [attr.r]="radius"
+                  [attr.cx]="halfWidthHeight"
+                  [attr.cy]="halfWidthHeight"
+                  [attr.stroke-dasharray]="circumference"
+                  [attr.stroke-dashoffset]="( ( 100 - ( (numberUsed[i_in]/9)*100 ) ) / 100 ) * circumference"></circle>
+        </svg>
+      </div>
+    </div>
+    <div class="num" (click)="clickNumberInput(0)">
+      <div class="cont back-cont" >
+        <svg class="svg" [attr.width]="widthHeight" [attr.height]="widthHeight" [attr.viewbox]="viewBox">
+          <circle fill="transparent" class="redbar" stroke-dashoffset="0"
+                  [attr.r]="radius"
+                  [attr.cx]="halfWidthHeight"
+                  [attr.cy]="halfWidthHeight"
+                  [attr.stroke-dasharray]="circumference"></circle>
+        </svg>
+      </div>
+    </div>
   </div>
-  <div class="grid-row">
-    <div class="num">4</div>
-    <div class="num">5</div>
-    <div class="num">6</div>
-  </div>
-  <div class="grid-row">
-    <div class="num">7</div>
-    <div class="num">8</div>
-    <div class="num">9</div>
-  </div>
+
 </div>

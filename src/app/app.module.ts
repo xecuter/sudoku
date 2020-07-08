@@ -12,7 +12,13 @@ import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { GridCellInputComponent } from './components/grid-cell-input/grid-cell-input.component';
 import { LongPressDirective } from './directives/long-press.directive';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 
+library.add(fas, far, fab);
 
 @NgModule({
   declarations: [
@@ -34,7 +40,8 @@ import { LongPressDirective } from './directives/long-press.directive';
     ]),
     MatButtonModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

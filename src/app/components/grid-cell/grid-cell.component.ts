@@ -23,7 +23,7 @@ export class GridCellComponent implements OnInit {
   x: number;
   y: number;
   options: number[];
-  num: any;
+  num: number;
   isRelated: boolean;
   isSelected: boolean;
   isEditable: boolean;
@@ -40,7 +40,7 @@ export class GridCellComponent implements OnInit {
     this.x = this.i;
     this.y = this.j;
     this.sudokuService.addCell(this);
-    this.num = '';
+    this.num = 0;
   }
 
   selectGridCell($event) {
@@ -74,7 +74,7 @@ export class GridCellComponent implements OnInit {
         allCells[boxAtX + i][boxAtY + j].isRelated = true;
       }
     }
-    this.highlightSameNumber(this);
+    this.sudokuService.highlightSameNumber(this);
   }
 
   onKeyDown(event: KeyboardEvent) {
@@ -82,32 +82,16 @@ export class GridCellComponent implements OnInit {
       const enteredNumber = parseInt( event.key, 10 );
       this.isWrongValue = !this.sudokuService.isSafeNumber(this.x, this.y, enteredNumber);
       this.num = enteredNumber;
-      this.highlightSameNumber(this);
+      this.sudokuService.highlightSameNumber(this);
       this.options.push(enteredNumber);
     }
   }
 
   onBackspaceKeydown($event) {
     if (this.isEditable) {
-      this.num = '';
+      this.num = 0;
       this.isWrongValue = false;
-      this.highlightSameNumber(this);
-    }
-  }
-
-  highlightSameNumber(cell: GridCellComponent) {
-
-    const allCells = this.sudokuService.cells;
-    const boxX = cell.x - cell.x % 3;
-    const boxY = cell.y - cell.y % 3;
-    for (let i = 0; i < allCells.length; i++) {
-      for (let j = 0; j < allCells[i].length; j++) {
-        if (!allCells[i][j].isSelected) {
-          allCells[i][j].isHighlighted = cell.num !== '' && allCells[i][j].num === cell.num;
-          allCells[i][j].isHighlightWrong = cell.isWrongValue && allCells[i][j].isHighlighted
-            && ( (cell.x === i || cell.y === j) || ( (i >= boxX && i < boxX + 3) && (j >= boxY && j < boxY + 3) ));
-        }
-      }
+      this.sudokuService.highlightSameNumber(this);
     }
   }
 

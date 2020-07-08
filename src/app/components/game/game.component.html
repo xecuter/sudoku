@@ -2,30 +2,25 @@
 <div class="lq-container">
   <div class="main-div">
     <div class="row">
-      <div class="col-3">
-        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-          <mat-icon>home</mat-icon>
+      <div class="col-6 ">
+        <button class="btn btn-primary btn-circle btn-md">
+          <fa-icon [icon]="faHome" size="2x"></fa-icon>
         </button>
       </div>
-      <div class="col-9">
-        1:{{numberUsed[0]}}, 2:{{numberUsed[1]}}, 3:{{numberUsed[2]}}, 4:{{numberUsed[3]}}, 5:{{numberUsed[4]}},
-        6:{{numberUsed[5]}}, 7:{{numberUsed[6]}}, 8:{{numberUsed[7]}}, 9:{{numberUsed[8]}}
+      <div class="col-6 ">
+        <button class="btn btn-primary btn-circle btn-md">
+          <fa-icon [icon]="faPen" size="2x"></fa-icon>
+        </button>
       </div>
     </div>
     <div class="row">
       <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
-        <app-sudoku-grid (gameStateChanged)="gameStateChanged()" (isGameCompeted)="isGameCompeted($event)"></app-sudoku-grid>
+        <app-sudoku-grid (gameStateChanged)="gameStateChanged($event)" (isGameCompeted)="isGameCompeted($event)"></app-sudoku-grid>
       </div>
-      <div class="border-danger col-xl-3 col-lg-3 col-md-12 col-sm-12">
-        <h4>INPUT SECTION</h4>
-        <div class="row">
-          <div class="border col-xl-12 col-lg-12 col-md-6 col-sm-6">
-            INPUT
-          </div>
-          <div class="border col-xl-12 col-lg-12 col-md-6 col-sm-6">
-            HELPER
-          </div>
-        </div>
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+        <app-grid-cell-input
+          [numberUsed]="numberUsed"
+          (gameStateChanged)="gameStateChanged($event)"></app-grid-cell-input>
       </div>
     </div>
   </div>
