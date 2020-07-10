@@ -2,12 +2,12 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SudokuService} from '../../services/sudoku.service';
 import {ConfirmationDialogComponent, DialogData} from '../confirmation-dialog/confirmation-dialog.component';
-import {MatDialog} from '@angular/material';
 import {faHome, faPencilAlt, faPencilRuler, faPen} from '@fortawesome/free-solid-svg-icons';
 import {faEdit} from '@fortawesome/free-regular-svg-icons';
 import {faBuromobelexperte} from '@fortawesome/free-brands-svg-icons';
 import {IconDefinition} from '@fortawesome/fontawesome-common-types';
 import {GameServiceService} from '../../services/game-service.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-game',

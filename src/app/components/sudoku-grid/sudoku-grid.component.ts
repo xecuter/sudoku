@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SudokuService} from '../../services/sudoku.service';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {ConfirmationDialogComponent, DialogData} from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
