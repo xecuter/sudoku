@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SudokuService} from '../../services/sudoku.service';
 import {ConfirmationDialogComponent, DialogData} from '../confirmation-dialog/confirmation-dialog.component';
 import {MatDialog} from '@angular/material';
@@ -7,6 +7,7 @@ import {faHome, faPencilAlt, faPencilRuler, faPen} from '@fortawesome/free-solid
 import {faEdit} from '@fortawesome/free-regular-svg-icons';
 import {faBuromobelexperte} from '@fortawesome/free-brands-svg-icons';
 import {IconDefinition} from '@fortawesome/fontawesome-common-types';
+import {GameServiceService} from '../../services/game-service.service';
 
 @Component({
   selector: 'app-game',
@@ -16,21 +17,28 @@ import {IconDefinition} from '@fortawesome/fontawesome-common-types';
 export class GameComponent implements OnInit, AfterViewInit {
   difficultyLevel: number;
   isGameCompleted: boolean;
+  toggleShowHelpFlag: boolean;
   numberUsed: number[];
   faHome: IconDefinition;
   faEdit: IconDefinition;
   faPencilRuler: IconDefinition;
   faPen: IconDefinition;
 
-  constructor(private route: ActivatedRoute, private sudokuService: SudokuService, public dialog: MatDialog ) { }
+  constructor(
+    private route: Router,
+    private activeRoute: ActivatedRoute,
+    private sudokuService: SudokuService,
+    private gameService: GameServiceService,
+    public dialog: MatDialog ) { }
 
   ngOnInit() {
     this.faHome = faHome;
     this.faEdit = faEdit;
     this.faPencilRuler = faPencilRuler;
     this.faPen = faPen;
+    this.toggleShowHelpFlag = false;
 
-    this.route.paramMap
+    this.activeRoute.paramMap
       .subscribe(params => {
         console.log(params.get('diffLevel'));
         this.difficultyLevel = parseInt(params.get('diffLevel'), 10);
@@ -49,7 +57,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   isGameCompeted(isGameCompletedFlag: boolean) {
-    console.log('--------------> is Game Completed --> ' + isGameCompletedFlag);
     this.isGameCompleted = isGameCompletedFlag;
   }
 
@@ -73,10 +80,16 @@ export class GameComponent implements OnInit, AfterViewInit {
         console.log('The dialog was closed');
         endCurrentGame = result;
         if (endCurrentGame) {
-
+          this.route.navigate(['/']);
         }
       });
+    } else {
+      this.route.navigate(['/']);
     }
   }
 
+  toggleShowHelp() {
+    this.toggleShowHelpFlag = !this.toggleShowHelpFlag;
+    this.gameService.updateShowHelperListener(this.toggleShowHelpFlag);
+  }
 }

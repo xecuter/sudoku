@@ -3,12 +3,12 @@
   <div class="main-div">
     <div class="row">
       <div class="col-6 ">
-        <button class="btn btn-primary btn-circle btn-md">
+        <button (click)="endGameOpenDlg()" class="btn btn-primary btn-circle btn-md">
           <fa-icon [icon]="faHome" size="2x"></fa-icon>
         </button>
       </div>
       <div class="col-6 ">
-        <button class="btn btn-primary btn-circle btn-md">
+        <button (click)="toggleShowHelp()" class="btn btn-primary btn-circle btn-md">
           <fa-icon [icon]="faPen" size="2x"></fa-icon>
         </button>
       </div>

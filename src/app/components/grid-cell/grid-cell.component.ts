@@ -1,6 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {SudokuService} from '../../services/sudoku.service';
 import {animate, keyframes, query, stagger, state, style, transition, trigger} from '@angular/animations';
+import {GameServiceService} from '../../services/game-service.service';
 
 @Component({
   selector: 'app-grid-cell',
@@ -31,8 +32,11 @@ export class GridCellComponent implements OnInit {
   isHighlighted: boolean;
   isHighlightWrong: boolean;
   showHelper: boolean;
+  showInputHelper: boolean;
 
-  constructor(private sudokuService: SudokuService) {
+  constructor(
+    private sudokuService: SudokuService,
+    private gameService: GameServiceService ) {
   }
 
   ngOnInit() {
@@ -41,6 +45,7 @@ export class GridCellComponent implements OnInit {
     this.y = this.j;
     this.sudokuService.addCell(this);
     this.num = 0;
+    this.gameService.getShowHelperListener().subscribe(flag => this.showInputHelper = flag );
   }
 
   selectGridCell($event) {
