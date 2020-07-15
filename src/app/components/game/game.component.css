@@ -1,0 +1,11 @@
+.dim{
+  opacity: 0.2;
+}
+.overlay{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  font-size: 8em;
+  opacity: 1.0;
+}

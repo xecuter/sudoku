@@ -9,17 +9,11 @@ import {ConfirmationDialogComponent, DialogData} from '../confirmation-dialog/co
 })
 export class SudokuGridComponent implements OnInit {
   N;
-  @Output() isGameCompeted: EventEmitter<any> = new EventEmitter<any>();
-  @Output() gameStateChanged: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private sudokuService: SudokuService) {
   }
 
   ngOnInit() {
     this.N = this.sudokuService.N;
-  }
-
-  checkIfComplete() {
-    this.isGameCompeted.emit( this.sudokuService.checkIfCompleted() );
   }
 }

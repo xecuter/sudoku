@@ -1,17 +1,16 @@
 <div appLongPress class="cell"
      [ngClass]="{
-        selected : isSelected,
-        wrong : isWrongValue,
-        related: isRelated,
-        highlight: isHighlighted,
-        highlightWrong: isHighlightWrong,
+        selected : !isGameComplete && isSelected,
+        wrong : !isGameComplete && isWrongValue,
+        related: !isGameComplete && isRelated,
+        highlight: !isGameComplete && isHighlighted,
+        highlightWrong: !isGameComplete && isHighlightWrong,
         editable: isEditable}"
      (mousedown)="selectGridCell($event)"
      (keydown)="onKeyDown($event)"
      (keydown.backspace)="onBackspaceKeydown($event)"
      (keydown.delete)="onBackspaceKeydown($event)"
      (keyup)="onKeyUp($event)"
-     (onLongPress)="openInputModal()"
      tabindex="0">
   <div *ngIf="num !== 0" class="anim-cell" [@numberPuffedIn]="num == 0 ? '' : 'puffIn'">{{num}}</div>
   <div *ngIf="showInputHelper && num === 0 && options.length > 0" class="grid-input-helper">

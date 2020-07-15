@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SudokuService} from '../../services/sudoku.service';
+import {GameService} from '../../services/game.service';
 
 @Component({
   selector: 'app-grid-cell-input',
@@ -7,7 +8,6 @@ import {SudokuService} from '../../services/sudoku.service';
   styleUrls: ['./grid-cell-input.component.css']
 })
 export class GridCellInputComponent implements OnInit {
-  @Output() gameStateChanged: EventEmitter<any> = new EventEmitter<any>();
   @Input() numberUsed: number[];
 
   widthHeight: number;
@@ -17,7 +17,9 @@ export class GridCellInputComponent implements OnInit {
   viewBox: string;
 
 
-  constructor(private sudokuService: SudokuService) { }
+  constructor(
+    private sudokuService: SudokuService,
+    private gameService: GameService) { }
 
   ngOnInit() {
     this.widthHeight = 50;
@@ -31,7 +33,8 @@ export class GridCellInputComponent implements OnInit {
   clickNumberInput(inputNumber: number) {
     if ( inputNumber === 0 || this.numberUsed[inputNumber - 1] < 9 ) {
       this.sudokuService.inputNumber( inputNumber );
-      this.gameStateChanged.emit(inputNumber);
+      this.gameService.updateGameStateChange( inputNumber.toString() );
+      this.sudokuService.updteGameCompleteFlag();
       this.sudokuService.fillUpdateHelper();
     }
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {blink} from 'sudoku-matrix';
 import {GridCellComponent} from '../components/grid-cell/grid-cell.component';
+import {GameService} from './game.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class SudokuService {
   public N: number; // Matrix of Sudoku, must me int = (SRN^2)
   public SRN: number; // SqrRoot of N
 
-  constructor() {
+  constructor(private gameService: GameService) {
     this.N = 9;
     this.SRN = Math.sqrt(this.N);
 
@@ -27,7 +28,7 @@ export class SudokuService {
     this.cells[cell.x][cell.y] = cell;
   }
 
-  initSudoku(diffLevel: number) {
+  initSudoku(diffLevel: string) {
 
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
@@ -36,7 +37,7 @@ export class SudokuService {
       }
     }
 
-    const grid = blink(diffLevel);
+    const grid = this._sudokuGrid(diffLevel);
 
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
@@ -47,6 +48,20 @@ export class SudokuService {
       }
     }
     this.fillUpdateHelper();
+  }
+
+  private _sudokuGrid(diffLevel: string): any[][] {
+    let level = 81 - 80;
+    if (diffLevel === 'easy') {
+      level = 81 - 64;
+    } else if (diffLevel === 'normal') {
+      level = 81 - 52;
+    } else if (diffLevel === 'hard') {
+      level = 81 - 40;
+    } else if (diffLevel === 'expert') {
+      level = 81 - 28;
+    }
+    return blink(level);
   }
 
   // check in the row for existence
@@ -105,7 +120,11 @@ export class SudokuService {
       && this.unUsedInBox((x - x % this.SRN), (y - y % this.SRN), num));
   }
 
-  checkIfCompleted() {
+  updteGameCompleteFlag() {
+    this.gameService.updateGameCompleteFlag(this.isGameComplete());
+  }
+
+  private isGameComplete(): boolean {
     for (let i = 0;  i < this.cells.length; i++) {
       for (let j = 0; j < this.cells[i].length; j++) {
         if ( this.cells[i][j].isWrongValue || this.cells[i][j].num === 0 ) {

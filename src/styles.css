@@ -89,6 +89,9 @@
 .cont.used {
   color: dimgray;
 }
+.cont.used .svg .bar {
+  stroke: #9aee11;
+}
 
 /*====================================================================================*/
 
@@ -187,7 +190,7 @@
   background-color: #eefdf7;
 }
 .cell.editable {
-  color: darkblue;
+  color: #0da3fc;
 }
 .cell.wrong {
   color: orangered !important;
@@ -197,9 +200,8 @@
   background: radial-gradient(circle, rgba(174,238,183,1) 0%, rgba(255,255,255,1) 100%);
 }
 .cell.highlightWrong {
-  color: #ff664d;
+  color: #f57544 !important;
 }
-
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }

@@ -2,11 +2,10 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SudokuService} from '../../services/sudoku.service';
 import {ConfirmationDialogComponent, DialogData} from '../confirmation-dialog/confirmation-dialog.component';
-import {faHome, faPencilAlt, faPencilRuler, faPen} from '@fortawesome/free-solid-svg-icons';
+import {faHome, faPencilRuler, faPen} from '@fortawesome/free-solid-svg-icons';
 import {faEdit} from '@fortawesome/free-regular-svg-icons';
-import {faBuromobelexperte} from '@fortawesome/free-brands-svg-icons';
 import {IconDefinition} from '@fortawesome/fontawesome-common-types';
-import {GameServiceService} from '../../services/game-service.service';
+import {GameService} from '../../services/game.service';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
@@ -15,7 +14,7 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit, AfterViewInit {
-  difficultyLevel: number;
+  difficultyLevel: string;
   isGameCompleted: boolean;
   toggleShowHelpFlag: boolean;
   numberUsed: number[];
@@ -28,7 +27,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     private route: Router,
     private activeRoute: ActivatedRoute,
     private sudokuService: SudokuService,
-    private gameService: GameServiceService,
+    private gameService: GameService,
     public dialog: MatDialog ) { }
 
   ngOnInit() {
@@ -38,10 +37,21 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.faPen = faPen;
     this.toggleShowHelpFlag = false;
 
+    this.gameService.getGameCompleteFlag().subscribe(flag => {
+      console.log('--------------> is Game Completed: --> ' + flag);
+      this.isGameCompleted = flag;
+    });
+    this.gameService.getGameStateChange().subscribe(str => {
+      console.log('--------------> Game State Change: --> ' + str);
+      for (let i = 0; i < 9; i++) {
+        this.numberUsed[i] = this.sudokuService.numberUsed(i + 1);
+      }
+    });
+
     this.activeRoute.paramMap
       .subscribe(params => {
         console.log(params.get('diffLevel'));
-        this.difficultyLevel = parseInt(params.get('diffLevel'), 10);
+        this.difficultyLevel = params.get('diffLevel');
       });
     this.numberUsed = [];
     for (let i = 0; i < 9; i++) {
@@ -52,19 +62,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     setTimeout(_ => {
       this.sudokuService.initSudoku(this.difficultyLevel);
-      this.gameStateChanged(0 );
+      this.gameService.updateGameStateChange('0');
     }, 500);
-  }
-
-  isGameCompeted(isGameCompletedFlag: boolean) {
-    this.isGameCompleted = isGameCompletedFlag;
-  }
-
-  gameStateChanged(numberInput: number) {
-    console.log('--------------> is Game Completed --> ' + numberInput);
-    for (let i = 0; i < 9; i++) {
-      this.numberUsed[i] = this.sudokuService.numberUsed(i + 1);
-    }
   }
 
   endGameOpenDlg() {

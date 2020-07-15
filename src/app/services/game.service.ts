@@ -5,10 +5,11 @@ import {SudokuService} from './sudoku.service';
 @Injectable({
   providedIn: 'root'
 })
-export class GameServiceService {
+export class GameService {
   private gameStateChange = new Subject<string>();
   private numberInputListener = new Subject<number>();
   private showHelperListener = new Subject<boolean>();
+  private gameCompleteFlag = new Subject<boolean>();
 
   constructor() {}
 
@@ -34,5 +35,13 @@ export class GameServiceService {
 
   updateShowHelperListener(showHelper: boolean) {
     this.showHelperListener.next(showHelper);
+  }
+
+  getGameCompleteFlag(): Observable<boolean> {
+    return this.gameCompleteFlag.asObservable();
+  }
+
+  updateGameCompleteFlag(flag: boolean) {
+    this.gameCompleteFlag.next(flag);
   }
 }

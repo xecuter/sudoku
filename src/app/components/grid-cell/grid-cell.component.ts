@@ -1,7 +1,7 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SudokuService} from '../../services/sudoku.service';
-import {animate, keyframes, query, stagger, state, style, transition, trigger} from '@angular/animations';
-import {GameServiceService} from '../../services/game-service.service';
+import {animate, query, stagger, state, style, transition, trigger} from '@angular/animations';
+import {GameService} from '../../services/game.service';
 
 @Component({
   selector: 'app-grid-cell',
@@ -20,7 +20,6 @@ import {GameServiceService} from '../../services/game-service.service';
 export class GridCellComponent implements OnInit {
   @Input() i;
   @Input() j;
-  @Output('checkIfComplete') checkIfComplete: EventEmitter<any> = new EventEmitter<any>();
   x: number;
   y: number;
   options: number[];
@@ -33,10 +32,11 @@ export class GridCellComponent implements OnInit {
   isHighlightWrong: boolean;
   showHelper: boolean;
   showInputHelper: boolean;
+  isGameComplete: boolean;
 
   constructor(
     private sudokuService: SudokuService,
-    private gameService: GameServiceService ) {
+    private gameService: GameService ) {
   }
 
   ngOnInit() {
@@ -46,6 +46,7 @@ export class GridCellComponent implements OnInit {
     this.sudokuService.addCell(this);
     this.num = 0;
     this.gameService.getShowHelperListener().subscribe(flag => this.showInputHelper = flag );
+    this.gameService.getGameCompleteFlag().subscribe(flag => this.isGameComplete = flag );
   }
 
   selectGridCell($event) {
@@ -85,7 +86,8 @@ export class GridCellComponent implements OnInit {
   onKeyDown(event: KeyboardEvent) {
     if (this.isEditable && event.key > '0' && event.key <= '9') {
       const enteredNumber = parseInt( event.key, 10 );
-      this.isWrongValue = !this.sudokuService.isSafeNumber(this.x, this.y, enteredNumber);
+      this.sudokuService.inputNumber( enteredNumber );
+      // this.isWrongValue = !this.sudokuService.isSafeNumber(this.x, this.y, enteredNumber);
       this.num = enteredNumber;
       this.sudokuService.highlightSameNumber(this);
       this.options.push(enteredNumber);
@@ -102,17 +104,8 @@ export class GridCellComponent implements OnInit {
 
   onKeyUp($event: KeyboardEvent) {
     console.log( '-----------> CELL: Sending message to Grid --->' );
-    this.checkIfComplete.emit();
+    this.gameService.updateGameStateChange($event.key);
+    this.sudokuService.updteGameCompleteFlag();
     this.sudokuService.fillUpdateHelper();
-  }
-
-  openInputModal() {
-    const allCells = this.sudokuService.cells;
-    for (let i = 0;  i < allCells.length; i++) {
-      for (let j = 0; j < allCells[i].length; j++) {
-        allCells[i][j].showHelper = false;
-      }
-    }
-    this.showHelper = true;
   }
 }
