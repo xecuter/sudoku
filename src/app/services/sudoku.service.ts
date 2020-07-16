@@ -10,6 +10,7 @@ export class SudokuService {
   cells: GridCellComponent[][];
   public N: number; // Matrix of Sudoku, must me int = (SRN^2)
   public SRN: number; // SqrRoot of N
+  private diffLevel: string;
   private GAME_KEY = '_sdk_gA';
 
   constructor(private gameService: GameService) {
@@ -60,7 +61,8 @@ export class SudokuService {
   }
 
   private _sudokuGrid(diffLevel: string): any[][] {
-    let level = 81 - 80;
+    this.diffLevel = diffLevel;
+    let level = 81 - 20;
     if (diffLevel === 'easy') {
       level = 81 - 64;
     } else if (diffLevel === 'normal') {
@@ -193,6 +195,7 @@ export class SudokuService {
 
   sageGameState() {
     const gameState = {
+      diffLevel: this.diffLevel,
       rows: []
     };
     for (let i = 0;  i < this.cells.length; i++) {
@@ -205,6 +208,13 @@ export class SudokuService {
     }
 
     localStorage.setItem(this.GAME_KEY, JSON.stringify(gameState));
+  }
+
+  getLastSavedDiffLevel(): string {
+    if (this.isGameAvailable()) {
+      return JSON.parse( localStorage.getItem(this.GAME_KEY) ).diffLevel;
+    }
+    return null;
   }
 
   private loadSavedGame() {

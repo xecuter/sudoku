@@ -9,3 +9,18 @@
   font-size: 8em;
   opacity: 1.0;
 }
+@media (max-width: 575.98px) {
+  .overlay{
+    font-size: 3em;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .overlay{
+    font-size: 3em;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .overlay{
+    font-size: 4.5em;
+  }
+}

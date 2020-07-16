@@ -40,6 +40,9 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.gameService.getGameCompleteFlag().subscribe(flag => {
       console.log('--------------> is Game Completed: --> ' + flag);
       this.isGameCompleted = flag;
+      if (this.isGameCompleted) {
+        this.sudokuService.discardSavedGame();
+      }
     });
     this.gameService.getGameStateChange().subscribe(str => {
       console.log('--------------> Game State Change: --> ' + str);

@@ -11,7 +11,8 @@ import {Router} from '@angular/router';
 })
 export class DesktopComponent implements OnInit {
   title = 'sudoku';
-  isSavedGameAvaialble: boolean;
+  isSavedGameAvailable: boolean;
+  lastLink: string;
 
   constructor(
     private route: Router,
@@ -19,11 +20,16 @@ export class DesktopComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.isSavedGameAvaialble = this.sudokuService.isGameAvailable();
+    this.isSavedGameAvailable = this.sudokuService.isGameAvailable();
+    const diffLevel = this.sudokuService.getLastSavedDiffLevel();
+    if ( this.isSavedGameAvailable && diffLevel != null && diffLevel.length > 0 ) {
+      console.log( 'DIFF LEVEL ----> ' + diffLevel);
+      this.lastLink = diffLevel;
+    }
   }
 
   startNewGameDlg(diffLevel) {
-    if ( this.isSavedGameAvaialble ) {
+    if ( this.isSavedGameAvailable ) {
       const dlgData = new DialogData('Start New Game', 'Do you want to start new game and discard the saved game?');
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '250px',
@@ -42,4 +48,7 @@ export class DesktopComponent implements OnInit {
     }
   }
 
+  loadLastGame() {
+    this.route.navigate( ['/game/' + this.lastLink] );
+  }
 }

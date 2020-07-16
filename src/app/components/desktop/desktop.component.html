@@ -9,9 +9,9 @@
         <div class="card-body">
           <h3 class="card-title">Start New Game</h3>
           <p class="card-text">Start the game with the dificulty of your choice.</p>
-          <div class="row m-4 justify-content-center" *ngIf="isSavedGameAvaialble">
+          <div class="row m-4 justify-content-center" *ngIf="isSavedGameAvailable">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-8 text-center">
-              <a class="btn-block" routerLink="/game/last" mat-raised-button color="secondary">Load last game</a>
+              <a class="btn-block" (click)="loadLastGame()" mat-raised-button color="secondary">Load last game</a>
             </div>
           </div>
           <div class="row m-4 justify-content-center">
