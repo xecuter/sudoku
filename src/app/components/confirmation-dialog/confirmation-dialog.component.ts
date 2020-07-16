@@ -26,7 +26,7 @@ export class DialogData {
   constructor(
     public title: string,
     public bodyMessage: string,
-    public yesBtnTxt: string = 'Okay',
-    public noBtnTxt: string = 'No Thank') {
+    public yesBtnTxt: string = 'Yes',
+    public noBtnTxt: string = 'No') {
   }
 }

@@ -10,6 +10,7 @@ export class SudokuService {
   cells: GridCellComponent[][];
   public N: number; // Matrix of Sudoku, must me int = (SRN^2)
   public SRN: number; // SqrRoot of N
+  private GAME_KEY = '_sdk_gA';
 
   constructor(private gameService: GameService) {
     this.N = 9;
@@ -37,6 +38,15 @@ export class SudokuService {
       }
     }
 
+    if ( this.isGameAvailable() ) {
+      this.loadSavedGame();
+    } else {
+      this.generateNewGame(diffLevel);
+    }
+    this.fillUpdateHelper();
+  }
+
+  private generateNewGame(diffLevel: string) {
     const grid = this._sudokuGrid(diffLevel);
 
     for (let i = 0; i < 9; i++) {
@@ -47,7 +57,6 @@ export class SudokuService {
         }
       }
     }
-    this.fillUpdateHelper();
   }
 
   private _sudokuGrid(diffLevel: string): any[][] {
@@ -177,4 +186,39 @@ export class SudokuService {
     return count;
   }
 
+  isGameAvailable(): boolean {
+    const gameData = localStorage.getItem(this.GAME_KEY);
+    return gameData != null && gameData.length > 0;
+  }
+
+  sageGameState() {
+    const gameState = {
+      rows: []
+    };
+    for (let i = 0;  i < this.cells.length; i++) {
+      const row = [];
+      for (let j = 0; j < this.cells[i].length; j++) {
+        const cell = this.cells[i][j];
+        row.push({num: cell.num, isEditable: cell.isEditable, isWrongValue: cell.isWrongValue});
+      }
+      gameState.rows.push(row);
+    }
+
+    localStorage.setItem(this.GAME_KEY, JSON.stringify(gameState));
+  }
+
+  private loadSavedGame() {
+    const gameState = JSON.parse( localStorage.getItem(this.GAME_KEY) );
+    for ( let i = 0; i < gameState.rows.length; i++ ) {
+      for (let j = 0; j < gameState.rows[i].length; j++) {
+        this.cells[i][j].num = gameState.rows[i][j].num;
+        this.cells[i][j].isEditable = gameState.rows[i][j].isEditable;
+        this.cells[i][j].isWrongValue = gameState.rows[i][j].isWrongValue;
+      }
+    }
+  }
+
+  discardSavedGame() {
+    localStorage.removeItem(this.GAME_KEY);
+  }
 }

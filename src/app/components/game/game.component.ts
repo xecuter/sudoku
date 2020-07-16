@@ -46,6 +46,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       for (let i = 0; i < 9; i++) {
         this.numberUsed[i] = this.sudokuService.numberUsed(i + 1);
       }
+      this.sudokuService.sageGameState();
     });
 
     this.activeRoute.paramMap
@@ -69,7 +70,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   endGameOpenDlg() {
     let endCurrentGame = false;
     if ( !this.isGameCompleted ) {
-      const dlgData = new DialogData('End Current Game', 'Do you really want to End the current Game?');
+      const dlgData = new DialogData('End Current Game', 'Do you really want to End the current Game? You will be resume this game later on.');
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '250px',
         data: dlgData

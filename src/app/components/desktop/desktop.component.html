@@ -9,29 +9,29 @@
         <div class="card-body">
           <h3 class="card-title">Start New Game</h3>
           <p class="card-text">Start the game with the dificulty of your choice.</p>
-          <div class="row m-4 justify-content-center">
+          <div class="row m-4 justify-content-center" *ngIf="isSavedGameAvaialble">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-8 text-center">
               <a class="btn-block" routerLink="/game/last" mat-raised-button color="secondary">Load last game</a>
             </div>
           </div>
           <div class="row m-4 justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-8 text-center">
-              <a class="btn-block" routerLink="/game/easy" mat-raised-button color="primary" >Easy</a>
+              <a class="btn-block" (click)="startNewGameDlg('/game/easy')" mat-raised-button color="primary" >Easy</a>
             </div>
           </div>
           <div class="row m-4 justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-8 text-center">
-              <a class="btn-block" routerLink="/game/normal" mat-raised-button color="primary" >Normal</a>
+              <a class="btn-block" (click)="startNewGameDlg('/game/normal')" mat-raised-button color="primary" >Normal</a>
             </div>
           </div>
           <div class="row m-4 justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-8 text-center">
-              <a class="btn-block" routerLink="/game/hart" mat-raised-button color="primary"  >Hard</a>
+              <a class="btn-block" (click)="startNewGameDlg('/game/hard')" mat-raised-button color="primary"  >Hard</a>
             </div>
           </div>
           <div class="row m-4 justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-8 text-center">
-              <a class="btn btn-primary btn-block" routerLink="/game/expert" mat-raised-button color="primary" >Expert</a>
+              <a class="btn btn-primary btn-block" (click)="startNewGameDlg('/game/expert')" mat-raised-button color="primary" >Expert</a>
             </div>
           </div>
         </div>
